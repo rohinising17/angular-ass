@@ -1,33 +1,47 @@
-(function() {
+(function () 
+{
     'use strict';
+    angular.module('LunchCheck',[])
+    .controller('LunchCheckController',LunchCheckController);
+    Check.$inject=['$scope'];
+    
+    function LunchCheckController($scope)
+    {
+        $scope.name="";
+        $scope.finalMsg="";
+        $scope.Check=function(){
+            
 
-    angular.module('LunchCheck', [])
-        .controller('LunchCheckController', LunchCheckController);
-
-    LunchCheckController.$inject = ['$scope'];
-
-    function LunchCheckController($scope) {
-        $scope.dishes = '';
-        $scope.message = '';
-        $scope.checked = false;
-
-        $scope.checkLunch = function() {
-            if ($scope.dishes.trim().length === 0) {
-                $scope.empty = true;
-            } else {
-                $scope.checked = true;
-                $scope.empty = false;
-                var arrayDishes = $scope.dishes.split(',');
-                var arrayDishesWithoutEmptys = arrayDishes.filter(function(v) {
-                    return v.trim() !== '';
-                });
-
-                if (arrayDishesWithoutEmptys.length <= 3) {
-                    $scope.message = 'Enjoy!';
-                } else {
-                    $scope.message = 'Too much!';
-                }
+        let arrayOfStrings = $scope.name.split(',');
+        var lengthOfString=arrayOfStrings.length;
+        
+        var c=0;
+        for(var i=0;i<lengthOfString;i++)
+        {
+            if(arrayOfStrings[i]!=false)
+            {
+                c++;
             }
+        }
+        //$scope.lengtharr=c;
+        if(c==0)
+        {
+            $scope.finalMsg="Please enter data first";
+        }
+        else if(lengthOfString>0&&lengthOfString<=3)
+        {
+            $scope.finalMsg="Enjoy!";
+        }
+        else
+        {
+            $scope.finalMsg="Too Much!";
+        }
+        
         };
+
+        
+        
     }
-})();
+   
+}
+) ();
